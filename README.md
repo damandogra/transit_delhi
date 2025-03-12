@@ -29,6 +29,7 @@ This project provides an interactive transit map for Delhi, displaying bus stops
 ```
 
 ## Installation & Setup
+
 ### 1️⃣ Clone the Repository
 ```sh
 git clone https://github.com/your-repo/delhi-transit-map.git
