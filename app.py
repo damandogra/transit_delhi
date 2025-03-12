@@ -95,7 +95,6 @@ def index():
             # Popup Content with Prank Image
             popup_content = f"""
             <b>Metro Station:</b> {station_name}<br>
-            <img src='/static/prank.jpg' width='200px' style='border-radius: 10px;'>
             """
 
             folium.CircleMarker(
