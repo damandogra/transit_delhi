@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delhi Bus Stands Map</title>
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+
+    <!-- Custom Styling -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background: #181818;
+            color: white;
+            overflow: hidden;
+        }
+        
+        /* Modern Top Bar */
+        #top-bar {
+            position: fixed;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 12px 24px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            backdrop-filter: blur(8px);
+        }
+
+        /* Map Styling */
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        /* Footer */
+        #footer {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+            font-style: italic;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        /* Marker Popups */
+        .leaflet-popup-content {
+            font-size: 14px;
+            font-weight: 500;
+            color: black;
+        }
+        
+        /* Location Button */
+        #locate-btn {
+            position: absolute;
+            top: 60px;
+            left: 20px;
+            background: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+        #locate-btn:hover {
+            background: #0056b3;
+        }
+    </style>
+
+    <!-- Leaflet JS -->
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+</head>
+<body>
+
+    <!-- Top Bar -->
+    <div id="top-bar">🚌 Transit Map of Delhi</div>
+
+    <!-- Locate Me Button -->
+    <button id="locate-btn">📍 Find My Location</button>
+
+    <!-- Footer -->
+    <div id="footer">Source: OpenStreetMap contributors<br>Curated by Daman Dogra</div>
+
+    <!-- Map Container -->
+    <div id="map">
+        {% include "map_base.html" %}
+    </div>
+
+    <script>
+        // Locate User Functionality
+        document.getElementById("locate-btn").addEventListener("click", function() {
+            map.locate({ setView: true, maxZoom: 16 });
+
+            map.on("locationfound", function(e) {
+                L.marker(e.latlng).addTo(map)
+                    .bindPopup("You are here!").openPopup();
+            });
+
+            map.on("locationerror", function() {
+                alert("Location access denied or unavailable.");
+            });
+        });
+    </script>
+
+</body>
+</html>
